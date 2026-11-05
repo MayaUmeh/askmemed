@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AskMeMed</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>AskMeMed <span class="tag">Prototype</span></h1>
+    <p class="sub">Helps staff answer questions about medicines using approved documents. A person checks every reply.
+      <strong>All medicines, documents and questions are made up.</strong></p>
+    <nav>
+      <button class="tab active" data-tab="enquiry">1. New question</button>
+      <button class="tab" data-tab="log">2. Log</button>
+      <button class="tab" data-tab="tests">3. Tests</button>
+      <button class="tab" data-tab="docs">4. Approved documents</button>
+      <button class="tab" data-tab="about">5. How it works</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ============ ENQUIRY ============ -->
+  <section id="enquiry" class="panel active">
+    <div class="card">
+      <label for="sample">Try an example question</label>
+      <select id="sample"><option value="">Choose a sample...</option></select>
+      <label for="q">Or type your own question</label>
+      <textarea id="q" rows="3" placeholder="e.g. How should I store Nazaski?"></textarea>
+      <button id="analyse" class="primary">Check question</button>
+    </div>
+
+    <div id="result" hidden>
+      <div class="grid">
+        <div class="card">
+          <h2>Step 1: Hide personal details</h2>
+          <p class="muted">Personal details are hidden first, and only the hidden version is saved.</p>
+          <div id="privacy"></div>
+        </div>
+        <div class="card">
+          <h2>Step 2: Is it risky?</h2>
+          <div id="triage"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Step 3: Approved documents used</h2>
+        <p class="muted">Every sentence in the draft is copied exactly from one of these sections.</p>
+        <div id="sources"></div>
+      </div>
+
+      <div class="card">
+        <h2>Step 4: Draft for a person to check</h2>
+        <p id="confidence" class="muted"></p>
+        <textarea id="draft" rows="12"></textarea>
+        <p id="editwarn" class="warn" hidden>You have changed the draft. This is saved in the log. A changed sentence no longer matches its source, so check it carefully.</p>
+
+        <div class="review">
+          <h3>Reviewer check</h3>
+          <label for="reviewer">Reviewer name</label>
+          <input id="reviewer" placeholder="e.g. A. Reviewer">
+          <label class="check"><input type="checkbox" id="c1"> I have checked every sentence against its source</label>
+          <label class="check"><input type="checkbox" id="c2"> I have checked the question is not about a side effect, pregnancy, a child or an unapproved use</label>
+          <div class="actions">
+            <button id="approve" class="primary" disabled>Approve and send</button>
+            <button id="escalate" class="secondary">Send to medical expert</button>
+          </div>
+          <p id="actionmsg" class="ok" hidden></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOG ============ -->
+  <section id="log" class="panel">
+    <div class="card">
+      <h2>Log</h2>
+      <p class="muted">Every decision is saved so it can be checked later. Only the hidden version is saved, and only in this browser.</p>
+      <div class="actions">
+        <button id="exportcsv" class="secondary">Download as CSV</button>
+        <button id="clearlog" class="secondary">Clear log</button>
+      </div>
+      <div class="tablewrap"><table id="logtable"><thead><tr>
+        <th>Time</th><th>Question (hidden details)</th><th>Route</th><th>Sources</th><th>Action</th><th>Reviewer</th><th>Edited?</th>
+      </tr></thead><tbody></tbody></table></div>
+      <p id="emptylog" class="muted">No decisions yet.</p>
+    </div>
+  </section>
+
+  <!-- ============ TESTS ============ -->
+  <section id="tests" class="panel">
+    <div class="card">
+      <h2>Tests</h2>
+      <p class="muted">Each question has the answer I expected. <strong>Building set:</strong> questions I used while building the tool.
+        <strong>New set:</strong> questions written afterwards that the tool never saw, so this is the fairer score.</p>
+      <button id="runtests" class="primary">Run all tests</button>
+      <div id="testsummary"></div>
+      <div class="tablewrap"><table id="testtable"><thead><tr>
+        <th>Set</th><th>Question</th><th>Expected</th><th>Tool gave</th><th>Result</th>
+      </tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ============ DOCS ============ -->
+  <section id="docs" class="panel">
+    <div class="card">
+      <h2>Approved documents (made up)</h2>
+      <p class="muted">The tool can only use these documents. Each one has a version number and date.</p>
+      <div id="doclist"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="panel">
+    <div class="card prose">
+      <h2>How it works</h2>
+      <ol>
+        <li><strong>Hide personal details:</strong> names, emails, phone numbers, NHS numbers, postcodes and dates are hidden first.</li>
+        <li><strong>Check for risky questions:</strong> simple rules look for overdoses, side effects, pregnancy, children, unapproved uses and product comparisons. These always go to a person.</li>
+        <li><strong>Search:</strong> the tool finds the best matching sections in the approved documents.</li>
+        <li><strong>Draft:</strong> the reply is built only from approved text, copied exactly, with a reference after each part. If nothing matches, it goes to an expert.</li>
+        <li><strong>Person checks:</strong> nothing is sent until a named reviewer ticks two boxes. Expert questions cannot be approved here at all.</li>
+        <li><strong>Log:</strong> every decision is saved, with the sources and whether the draft was changed.</li>
+      </ol>
+      <h3>What this is not</h3>
+      <p>This is a small demo with made up data. It is not real medical advice. Before using it for real, the rules would need to be checked by medical and safety experts.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap muted">Made by Maya Umeh. All data is made up.</footer>
+
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
