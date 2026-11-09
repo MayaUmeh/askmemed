@@ -1,6 +1,6 @@
 # AskMeMed
 
-Made by Maya Umeh for the Ankura AI by Design task (Scenario 3: Pharma).
+Maya Umeh for the Ankura AI by Design task (Scenario 3: Pharma).
 
 It helps staff answer questions about medicines using approved documents. A person checks every reply.
 
@@ -8,7 +8,7 @@ All medicines and data are made up: Nazaski (period pain), Maricinta (painkiller
 
 ## How to open it
 
-Open the website link, or download the files and double click `index.html`.
+Open the website link.
 
 ## Things to try
 
@@ -27,4 +27,4 @@ Then try the Log and Tests tabs.
 - `engine.js`: hides details, checks for risks, finds answers
 - `app.js`: buttons, log and tests
 
-I used Claude (an AI assistant) to help build this, and checked and tested it myself.
+
